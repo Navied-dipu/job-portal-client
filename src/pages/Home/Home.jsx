@@ -1,9 +1,12 @@
 import React from "react";
+import Banner from "./Banner";
+import Hotjobs from "../Hotjobs";
 
 export default function Home() {
   return (
     <div>
-      <h2>This is home</h2>
+      <Banner></Banner>
+      <Hotjobs></Hotjobs>
     </div>
   );
 }

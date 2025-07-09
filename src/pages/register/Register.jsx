@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import React, { useContext } from "react";
 import registerLotteeData from "../../assets/lotti/register.json";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import Social from "../shared/Social";
 
 export default function Register() {
   const { createUser } = useContext(AuthContext);
@@ -65,6 +66,7 @@ export default function Register() {
               <button type="submit" className="btn btn-neutral mt-4">
                 Login
               </button>
+              <Social></Social>
             </form>
           </div>
         </div>
