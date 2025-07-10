@@ -1,7 +1,9 @@
 import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 export default function HotjobCard({ job }) {
   const {
+    _id,
     title,
     company,
     company_logo,
@@ -36,11 +38,11 @@ export default function HotjobCard({ job }) {
         </p>
         <div className="flex flex-wrap">
             {
-                requirements.map(skill =><p className="border- rounded-2xl text-center p-1 hover:bg-gray-700">{skill}</p>)
+                requirements.map((skill , index) =><p key={index} className="border- rounded-2xl text-center p-1 hover:bg-gray-700">{skill}</p>)
             }
         </div>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Details</button>
+          <Link to={`/jobs/${_id}`}><button className="btn btn-primary">Details</button></Link>
         </div>
       </div>
     </div>

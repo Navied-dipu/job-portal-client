@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import signinLotteeData from '../../assets/lotti/signin.json'
 import Lottie from 'lottie-react';
 import AuthContext from '../../context/AuthContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
     const {signInUser}=useContext(AuthContext)
+    const navigate =useNavigate()
       const handleSignIn = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -12,6 +14,7 @@ export default function SignIn() {
         signInUser(email, password)
         .then(result =>{
             console.log('log in user', result.user)
+            navigate('/')
         })
         .catch((error)=>{
             console.log('error', error.massege)
