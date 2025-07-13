@@ -1,8 +1,8 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 export default function JobDetails() {
-  const { title, company, applicationDeadline} = useLoaderData();
+  const {_id, title, company, applicationDeadline} = useLoaderData();
   // console.log(job);
   return (
     <div className="card bg-primary text-primary-content m-5 w-96">
@@ -11,7 +11,7 @@ export default function JobDetails() {
        <h2>Company : {company}</h2>
        <h3>Deadline : {applicationDeadline}</h3>
         <div className="card-actions justify-end">
-          <button className="btn">Apply</button>
+         <Link to={`/jobApply/${_id}`}> <button className="btn">Apply</button></Link>
         </div>
       </div>
     </div>

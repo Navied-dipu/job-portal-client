@@ -15,7 +15,7 @@ export default function Navber() {
   const links = 
     <>
 <li><NavLink to={'/'}>Home</NavLink></li>
-<li><NavLink to={'/'}>Home</NavLink></li>
+<li><NavLink to={'/myapplications'}>My Applications</NavLink></li>
 <li><NavLink to={'/'}>Home</NavLink></li>
      
     </>
