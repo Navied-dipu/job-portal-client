@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -7,6 +7,7 @@ export default function JobApply() {
   const { id } = useParams();
   console.log(id);
   const { user } = useAuth();
+  const neviget=useNavigate()
   const handleJobApply = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -37,6 +38,7 @@ export default function JobApply() {
           showConfirmButton: false,
           timer: 1500,
         });
+        neviget('/')
       });
   };
   return (
