@@ -1,9 +1,32 @@
 import React from "react";
+import useAuth from "../../hooks/useAuth";
 
 export default function AddJobs() {
-    const handleAddJob=e=>{
-        e.preventDefault()
-    }
+  const { user } = useAuth();
+  const handleAddJob = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    console.log(formData.entries());
+    const initialData = Object.fromEntries(formData.entries());
+    console.log(initialData);
+    const { min, max, currency, ...newJob } = initialData;
+    console.log(newJob);
+    newJob.salaryRange = { min, max, currency };
+    newJob.requierements = newJob.requierements.split("\n");
+    newJob.responsibilities = newJob.responsibilities.split("\n");
+    console.log(newJob);
+     fetch("http://localhost:5000/jobs", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
   return (
     <div className="mt-5">
       <h2 className="text-3xl font-extrabold text-center">Post a new job</h2>
@@ -30,7 +53,7 @@ export default function AddJobs() {
             />
             {/* job type */}
             <label className="label">Job Type</label>
-            <select defaultValue="Job Role" name="Type" className="select">
+            <select defaultValue="Job Role" name="type" className="select">
               <option disabled={true}>Job Type</option>
               <option>Full Time</option>
               <option>Intren</option>
@@ -103,14 +126,14 @@ export default function AddJobs() {
             <label className="label mb-3">Requierments</label>
             <textarea
               className="textarea w-full"
-              name="requierements "
+              name="requierements"
               placeholder="Please  put each requierements in a new line"
             ></textarea>
             {/* responsibilities */}
             <label className="label mb-3">Responsibilities</label>
             <textarea
               className="textarea w-full"
-              name="responsibilities  "
+              name="responsibilities"
               placeholder="Please  put each responsibilities  in a new line"
             ></textarea>
             {/* hr email */}
@@ -119,7 +142,7 @@ export default function AddJobs() {
               type="text"
               name="hr_email"
               className="input w-full"
-              placeholder=""
+              placeholder={user.email}
             />
             {/* hr name */}
             <label className="label mb-3">HR Name</label>
