@@ -17,6 +17,7 @@ export default function Navber() {
 <li><NavLink to={'/'}>Home</NavLink></li>
 <li><NavLink to={'/myapplications'}>My Applications</NavLink></li>
 <li><NavLink to={'/add-jobs'}>Add Jobs</NavLink></li>
+<li><NavLink to={'/mypostedjob'}>Posted jobs</NavLink></li>
      
     </>
   return (

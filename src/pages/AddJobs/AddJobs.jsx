@@ -1,8 +1,11 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function AddJobs() {
   const { user } = useAuth();
+  const naviget=useNavigate()
   const handleAddJob = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,10 +15,10 @@ export default function AddJobs() {
     const { min, max, currency, ...newJob } = initialData;
     console.log(newJob);
     newJob.salaryRange = { min, max, currency };
-    newJob.requierements = newJob.requierements.split("\n");
+    newJob.requirements = newJob.requirements.split("\n");
     newJob.responsibilities = newJob.responsibilities.split("\n");
     console.log(newJob);
-     fetch("http://localhost:5000/jobs", {
+    fetch("http://localhost:5000/jobs", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -24,7 +27,16 @@ export default function AddJobs() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your job add successfuly",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          naviget('/mypostedjob')
+        }
       });
   };
   return (
@@ -111,7 +123,7 @@ export default function AddJobs() {
             <label className="label mb-3">Job Description</label>
             <textarea
               className="textarea w-full"
-              name="description "
+              name="description"
               placeholder="Description"
             ></textarea>
             {/* job company */}
@@ -126,7 +138,7 @@ export default function AddJobs() {
             <label className="label mb-3">Requierments</label>
             <textarea
               className="textarea w-full"
-              name="requierements"
+              name="requirements"
               placeholder="Please  put each requierements in a new line"
             ></textarea>
             {/* responsibilities */}
@@ -141,6 +153,7 @@ export default function AddJobs() {
             <input
               type="text"
               name="hr_email"
+              defaultValue={user.email}
               className="input w-full"
               placeholder={user.email}
             />
