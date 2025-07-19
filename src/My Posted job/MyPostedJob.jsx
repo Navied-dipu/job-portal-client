@@ -36,7 +36,7 @@ export default function MyPostedJob() {
                 <Link to={`/viewapplication/${job._id}`}>
                   {" "}
                   <td>
-                    <button className="btn btn-link"> View Application</button>
+                    <p>View Application</p>
                   </td>
                 </Link>
               </tr>
