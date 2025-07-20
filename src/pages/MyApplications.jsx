@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function MyApplications() {
   const { user } = useAuth();
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/job-application?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setJobs(data));
+    // fetch(`http://localhost:5000/job-application?email=${user.email}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setJobs(data));
+    axios
+      .get(`http://localhost:5000/job-application?email=${user.email}`, {
+        withCredentials: true,
+      })
+      .then((res) => console.log(setJobs(res.data)));
   }, [user.email]);
 
   // delete
@@ -28,7 +34,7 @@ export default function MyApplications() {
         })
           .then((res) => res.json())
           .then((data) => {
-            if (data.deletedCount> 0) {
+            if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -95,13 +101,17 @@ export default function MyApplications() {
                 </td>
                 <td>Purple</td>
                 <th>
-                  <button    onClick={() => handleDelete(job._id)} className="btn btn-ghost btn-xs">X</button>
+                  <button
+                    onClick={() => handleDelete(job._id)}
+                    className="btn btn-ghost btn-xs"
+                  >
+                    X
+                  </button>
                 </th>
               </tr>
             ))}
 
             {/* row 4 */}
-            
           </tbody>
           {/* foot */}
         </table>

@@ -1,34 +1,41 @@
-import React, { useContext } from 'react'
-import signinLotteeData from '../../assets/lotti/signin.json'
-import Lottie from 'lottie-react';
-import AuthContext from '../../context/AuthContext/AuthContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import signinLotteeData from "../../assets/lotti/signin.json";
+import Lottie from "lottie-react";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SignIn() {
-    const {signInUser}=useContext(AuthContext)
-    const navigate =useNavigate()
-    const location=useLocation()
-    console.log(location)
-    const from= location.state || '/'
-      const handleSignIn = (event) => {
+  const { signInUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  const from = location.state || "/";
+  const handleSignIn = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
-        signInUser(email, password)
-        .then(result =>{
-            console.log('log in user', result.user)
-            navigate(from)
-
-        })
-        .catch((error)=>{
-            console.log('error', error.massege)
-        })
+    signInUser(email, password)
+      .then((result) => {
+        console.log("log in user", result.user.email);
+        const user = {
+          email: email,
+        };
+        axios.post("http://localhost:5000/jwt", user,{withCredentials:true})
+        .then((res) => {
+          console.log(res.data);
+        });
+        // navigate(from)
+      })
+      .catch((error) => {
+        console.log("error", error.massege);
+      });
   };
   return (
-        <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center w-90 lg:text-left">
-          <Lottie  animationData={signinLotteeData}></Lottie>
+          <Lottie animationData={signinLotteeData}></Lottie>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
@@ -66,5 +73,5 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-  )
+  );
 }
