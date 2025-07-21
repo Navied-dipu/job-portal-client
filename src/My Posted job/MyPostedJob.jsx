@@ -33,12 +33,11 @@ export default function MyPostedJob() {
                 <td>{index + 1}</td>
                 <td>{job.title}</td>
                 <td>{job.applicationDeadline}</td>
-                <Link to={`/viewapplication/${job._id}`}>
-                  {" "}
-                  <td>
+                <td>
+                  <Link to={`/viewapplication/${job._id}`}>
                     <p>View Application</p>
-                  </td>
-                </Link>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
