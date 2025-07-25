@@ -14,7 +14,7 @@ export default function MyApplications() {
       .get(`http://localhost:5000/job-application?email=${user.email}`, {
         withCredentials: true,
       })
-      .then((res) => console.log(setJobs(res.data)));
+      .then((res) => setJobs(res.data));
   }, [user.email]);
 
   // delete

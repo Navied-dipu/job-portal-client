@@ -28,7 +28,7 @@ export default function SignIn() {
         // navigate(from)
       })
       .catch((error) => {
-        console.log("error", error.massege);
+        console.log("error", error.message);
       });
   };
   return (
